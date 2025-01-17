@@ -1,13 +1,18 @@
 <template>
   <div class="blog-app">
     <BaseLayout title="블로그 게시판">
-       <!--게시글 작성 로딩 컴포넌트 호출-->
+       <!--게시글 작성 로딩 컴포넌트 호출
       <PostForm 
         
       />
-     
+     -->
 
-
+     <PostList
+      :posts="posts">
+        <template #empty-message>
+          <p>게시물이 없습니다.</p>
+        </template>
+      </PostList>
    <!--로딩 아이콘과 에러메세지 컴포넌트 호출
            조건에 맞게 로딩할 필요가 있음.-->
       <!-- <LoadingSpinner />
@@ -24,9 +29,9 @@
 
 <script>
 import axios from 'axios'
-//import PostForm from './components/PostForm.vue'
-// import BaseLayout from './components/layouts/BaseLayout.vue'
-// import PostList from './components/PostList.vue'
+// import PostForm from './components/PostForm.vue'
+import BaseLayout from './components/layout/BaseLayout.vue'
+import PostList from './components/PostList.vue'
 // import PostCard from './components/PostCard.vue'
 // import LoadingSpinner from './components/common/LoadingSpinner.vue'
 // import ErrorMessage from './components/common/ErrorMessage.vue'
@@ -36,9 +41,10 @@ import axios from 'axios'
 
 //컴포넌트를 사용하려면 뭐부터 해야하지?
 export default{
-  // components: {
-  //   PostForm
-  // },
+  components: {
+    BaseLayout,
+    PostList
+  },
 
   data(){
     return{

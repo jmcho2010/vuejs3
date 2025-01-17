@@ -22,8 +22,31 @@
 
 <script>
     export default{
-
+        props:{
+            title:{
+                type: String,
+                required: true
+            }
+        }
     }
 </script>
 
-<style></style>
+<style scoped>
+  .header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;  
+  }
+  
+  .main-content {
+    min-height: 300px;  
+  }
+  
+  .footer {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;  
+    text-align: center;
+    color: #666;
+  }
+</style>
