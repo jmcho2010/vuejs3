@@ -36,7 +36,7 @@
 
 <script>
 import axios from 'axios'
-// import PostForm from './components/PostForm.vue'
+import PostForm from './components/PostForm.vue'
 import BaseLayout from './components/layout/BaseLayout.vue'
 import PostList from './components/PostList.vue'
 // import LoadingSpinner from './components/common/LoadingSpinner.vue'
@@ -49,7 +49,8 @@ import PostList from './components/PostList.vue'
 export default{
   components: {
     BaseLayout,
-    PostList
+    PostList,
+    PostForm
   },
 
   data(){
@@ -65,6 +66,15 @@ export default{
        this.posts = response.data 
        console.log(response.data);
     },
+
+    async createPost(newPost){
+      // 현업에서는 db로 내용 저장 요청을 보냈는데 
+      // 여기서는 db구축을 전혀 하지 않았기 때문에 
+      // 일부러 저장했다 치고 결과를 로딩할수 있도록 처리.
+      const response = await axios
+      .get('https://jsonplaceholder.typicode.com/posts', newPost);
+      this.posts.unshift(response.data) // 새 게시물을 목록 맨앞으로...
+    }
   },
   created(){
       // 굳이 데이터 로딩 구조를 분리한 이유는
