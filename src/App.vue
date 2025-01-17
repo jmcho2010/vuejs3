@@ -14,7 +14,9 @@
      />
 
      <PostList
-      :posts="posts">
+      v-else
+      :posts="posts"
+      >
         <template #empty-message>
           <p>게시물이 없습니다.</p>
         </template>
@@ -35,12 +37,11 @@
 
 <script>
 import axios from 'axios'
-// import PostForm from './components/PostForm.vue'
+import PostForm from './components/PostForm.vue'
 import BaseLayout from './components/layout/BaseLayout.vue'
 import PostList from './components/PostList.vue'
-// import PostCard from './components/PostCard.vue'
-// import LoadingSpinner from './components/common/LoadingSpinner.vue'
-// import ErrorMessage from './components/common/ErrorMessage.vue'
+import LoadingSpinner from './components/common/LoadingSpinner.vue'
+import ErrorMessage from './components/common/ErrorMessage.vue'
 // import BaseButton from './components/common/BaseButton.vue'
 // import BaseInput from './components/common/BaseInput.vue'
 // import BaseTextarea from './components/common/BaseTextarea.vue'
@@ -49,27 +50,32 @@ import PostList from './components/PostList.vue'
 export default{
   components: {
     BaseLayout,
-    PostList
+    PostList,
+    PostForm,
+    LoadingSpinner,
+    ErrorMessage
   },
 
   data(){
     return{
-      posts:[]
+      posts:[],
+      loading: false,
+      error:null
     }
   },
   methods: {
-    created(){
+    async fetchPosts(){
+       const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+       this.posts = response.data 
+       console.log(response.data);
+    },
+  },
+  created(){
       // 굳이 데이터 로딩 구조를 분리한 이유는
       // 첫 로딩시 데이터 뿐만이 아니라 추후 다른 기능들을 로딩할 가능성도 있어서
       // 재사용성과 확장성을 위해 분리.
       alert("test");
       this.fetchPosts();
-    },
-    async fetchPosts(){
-       const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-       this.posts = response.data 
-       console.log(response.data);
-    }
   }
 }
 
