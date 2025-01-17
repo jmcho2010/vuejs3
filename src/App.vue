@@ -2,19 +2,18 @@
   <div class="blog-app">
     <BaseLayout title="블로그 게시판">
        <!--게시글 작성 로딩 컴포넌트 호출  -->
-      <PostForm
+     <PostForm
         :loading="loading" 
         @submit="createPost"
       />
-   
+    <!-- 
      <LoadingSpinner v-if="loading"/>
      <ErrorMessage
         v-else-if="error"
         :message="error"
-     />
+     /> -->
 
      <PostList
-      v-else
       :posts="posts"
       >
         <template #empty-message>
@@ -37,11 +36,11 @@
 
 <script>
 import axios from 'axios'
-import PostForm from './components/PostForm.vue'
+// import PostForm from './components/PostForm.vue'
 import BaseLayout from './components/layout/BaseLayout.vue'
 import PostList from './components/PostList.vue'
-import LoadingSpinner from './components/common/LoadingSpinner.vue'
-import ErrorMessage from './components/common/ErrorMessage.vue'
+// import LoadingSpinner from './components/common/LoadingSpinner.vue'
+// import ErrorMessage from './components/common/ErrorMessage.vue'
 // import BaseButton from './components/common/BaseButton.vue'
 // import BaseInput from './components/common/BaseInput.vue'
 // import BaseTextarea from './components/common/BaseTextarea.vue'
@@ -50,10 +49,7 @@ import ErrorMessage from './components/common/ErrorMessage.vue'
 export default{
   components: {
     BaseLayout,
-    PostList,
-    PostForm,
-    LoadingSpinner,
-    ErrorMessage
+    PostList
   },
 
   data(){
