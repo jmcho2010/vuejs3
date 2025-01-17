@@ -67,7 +67,7 @@ export default{
             this.editiedPost = { ...this.post }
         },
         saveEdit(){
-            this.$emit('edit', this.editedPost)
+            this.$emit('edit', this.editiedPost)
             this.isEditing = false
         },
         cancelEdit(){   

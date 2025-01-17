@@ -74,6 +74,18 @@ export default{
       const response = await axios
       .post('https://jsonplaceholder.typicode.com/posts', newPost);
       this.posts.unshift(response.data) // 새 게시물을 목록 맨앞으로...
+    },
+
+    async editPost(updatePost){
+
+      console.log(updatePost);
+      const response 
+      = await axios.put(
+    `https://jsonplaceholder.typicode.com/posts/${updatePost.id}`, updatePost);
+    
+    // 수정된 게시물로 기존 게시물 교체
+    const index = this.posts.findIndex(p=> p.id === updatePost.id);
+    this.posts[index] = response.data
     }
   },
   created(){
