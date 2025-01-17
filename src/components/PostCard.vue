@@ -59,13 +59,20 @@ export default{
     },
     methods:{
         startEdit(){
-
+            this.isEditing = true;
+            // 꼭 스프레드로 써야하는가?
+            // 1. 객체의 무결성 유지
+            // 2. 객체를 직접 전달할때는 예기치않은 부작용이 발생할수 있음.
+            // 3. Vue의 반응 시스템 자체를 더 효율적으로 작동시킬수 있음.
+            this.editiedPost = { ...this.post }
         },
         saveEdit(){
-
+            this.$emit('edit', this.editedPost)
+            this.isEditing = false
         },
-        cancelEdit(){
-
+        cancelEdit(){   
+            this.isEditing = false
+            this.editiedPost = { ...this.post }
         }
 
     }

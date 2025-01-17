@@ -15,6 +15,8 @@
 
      <PostList
       :posts="posts"
+      @edit="editPost"
+      @delete="deletePost"
       >
         <template #empty-message>
           <p>게시물이 없습니다.</p>
@@ -41,9 +43,7 @@ import BaseLayout from './components/layout/BaseLayout.vue'
 import PostList from './components/PostList.vue'
 // import LoadingSpinner from './components/common/LoadingSpinner.vue'
 // import ErrorMessage from './components/common/ErrorMessage.vue'
-// import BaseButton from './components/common/BaseButton.vue'
-// import BaseInput from './components/common/BaseInput.vue'
-// import BaseTextarea from './components/common/BaseTextarea.vue'
+
 
 //컴포넌트를 사용하려면 뭐부터 해야하지?
 export default{
