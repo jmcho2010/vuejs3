@@ -72,7 +72,7 @@ export default{
       // 여기서는 db구축을 전혀 하지 않았기 때문에 
       // 일부러 저장했다 치고 결과를 로딩할수 있도록 처리.
       const response = await axios
-      .get('https://jsonplaceholder.typicode.com/posts', newPost);
+      .post('https://jsonplaceholder.typicode.com/posts', newPost);
       this.posts.unshift(response.data) // 새 게시물을 목록 맨앞으로...
     }
   },
