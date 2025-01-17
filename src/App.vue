@@ -1,11 +1,17 @@
 <template>
   <div class="blog-app">
     <BaseLayout title="블로그 게시판">
-       <!--게시글 작성 로딩 컴포넌트 호출
-      <PostForm 
-        
+       <!--게시글 작성 로딩 컴포넌트 호출  -->
+      <PostForm
+        :loading="loading" 
+        @submit="createPost"
       />
-     -->
+   
+     <LoadingSpinner v-if="loading"/>
+     <ErrorMessage
+        v-else-if="error"
+        :message="error"
+     />
 
      <PostList
       :posts="posts">
@@ -56,10 +62,12 @@ export default{
       // 굳이 데이터 로딩 구조를 분리한 이유는
       // 첫 로딩시 데이터 뿐만이 아니라 추후 다른 기능들을 로딩할 가능성도 있어서
       // 재사용성과 확장성을 위해 분리.
+      alert("test");
       this.fetchPosts();
     },
     async fetchPosts(){
-       const response = await axios.get('https://jsonplaceholder.typicode.com/posts') 
+       const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+       this.posts = response.data 
        console.log(response.data);
     }
   }
