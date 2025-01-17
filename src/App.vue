@@ -6,14 +6,15 @@
         :loading="loading" 
         @submit="createPost"
       />
-    <!-- 
+
      <LoadingSpinner v-if="loading"/>
      <ErrorMessage
         v-else-if="error"
         :message="error"
-     /> -->
+     />
 
      <PostList
+     v-else
       :posts="posts"
       @edit="editPost"
       @delete="deletePost"
@@ -41,7 +42,7 @@ import axios from 'axios'
 import PostForm from './components/PostForm.vue'
 import BaseLayout from './components/layout/BaseLayout.vue'
 import PostList from './components/PostList.vue'
-// import LoadingSpinner from './components/common/LoadingSpinner.vue'
+import LoadingSpinner from './components/common/LoadingSpinner.vue'
 // import ErrorMessage from './components/common/ErrorMessage.vue'
 
 
@@ -50,21 +51,30 @@ export default{
   components: {
     BaseLayout,
     PostList,
-    PostForm
+    PostForm,
+    LoadingSpinner
   },
 
   data(){
     return{
       posts:[],
-      loading: false,
+      loading: false,// 기본적으로는 loadingspinner가 돌아가지 않도록처리
       error:null
     }
   },
   methods: {
     async fetchPosts(){
+      try{
+        this.loading= true // 로딩 시작
        const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
        this.posts = response.data 
        console.log(response.data);
+      }catch(err){
+        this.error = '게시물 로딩 실패'
+      } finally{
+        this.loading= false // 로딩 종료
+      }
+
     },
 
     async createPost(newPost){
@@ -86,6 +96,16 @@ export default{
     // 수정된 게시물로 기존 게시물 교체
     const index = this.posts.findIndex(p=> p.id === updatePost.id);
     this.posts[index] = response.data
+    },
+    //게시물 삭제.
+    // 1. deletePost 메서드를 완성시켜서 데이터 삭제를 구현해주세요
+    // 2. LoadingSpinner 컴포넌트를 app에서 로딩시켜서
+    //    기능이 정상적으로 작동하도록 코드를 완성.
+    // 3. 예외처리를 추가하고 ErrorMessage 컴포넌트를 통해
+    //    내용을 가져올수 있도록 처리.
+    async deletePost(id){
+      await axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
+      this.posts = this.posts.filter(post => post.id !== id);
     }
   },
   created(){
